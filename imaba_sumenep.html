@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071a2b">
+  <meta name="description" content="Website profil IMABA Sumenep — ruang kolaborasi, pengembangan, dan pengabdian mahasiswa.">
+  <title>IMABA Sumenep | Bersatu, Bertumbuh, Mengabdi</title>
+  <style>
+    :root {
+      --bg: #071a2b;
+      --bg-soft: #0b2439;
+      --panel: rgba(15, 42, 63, .78);
+      --text: #f4f8fb;
+      --muted: #b2c3d1;
+      --accent: #f4b942;
+      --accent-2: #35d0b2;
+      --line: rgba(255,255,255,.12);
+      --radius: 22px;
+      --shadow: 0 18px 55px rgba(0,0,0,.22);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 85% 5%, rgba(53,208,178,.12), transparent 27rem),
+        radial-gradient(circle at 0% 28%, rgba(244,185,66,.09), transparent 25rem),
+        var(--bg);
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: auto; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--accent); font-size: .8rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 25px; height: 2px; background: var(--accent); }
+    .section { padding: 94px 0; }
+    .section-head { max-width: 700px; margin-bottom: 38px; }
+    .section-head h2 { margin-top: 12px; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.12; letter-spacing: -.04em; }
+    .section-head p { color: var(--muted); margin-top: 15px; }
+    .highlight { color: var(--accent); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 1px solid transparent; padding: 13px 19px; border-radius: 999px; font-weight: 800; cursor: pointer; transition: transform .2s, background .2s, border-color .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--accent); color: #172334; box-shadow: 0 8px 25px rgba(244,185,66,.18); }
+    .btn-primary:hover { background: #ffd16e; }
+    .btn-ghost { border-color: var(--line); color: var(--text); background: rgba(255,255,255,.03); }
+    .btn-ghost:hover { border-color: var(--accent); }
+    .navbar { position: sticky; top: 0; z-index: 50; background: rgba(7,26,43,.86); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); }
+    .nav-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: .02em; }
+    .brand-mark { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 14px; color: #10263a; background: linear-gradient(135deg, var(--accent), #ffe4a0); font-weight: 1000; font-size: .85rem; box-shadow: 0 8px 20px rgba(244,185,66,.18); }
+    .brand small { display: block; color: var(--muted); font-weight: 600; letter-spacing: .04em; font-size: .68rem; }
+    .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: .9rem; font-weight: 700; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .nav-toggle { display: none; border: 1px solid var(--line); background: transparent; color: white; width: 44px; height: 44px; border-radius: 13px; cursor: pointer; font-size: 1.3rem; }
+    .hero { min-height: 660px; display: grid; align-items: center; padding: 78px 0 90px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 55px; align-items: center; }
+    .hero h1 { font-size: clamp(2.8rem, 6vw, 5.35rem); line-height: .99; letter-spacing: -.065em; margin: 20px 0 24px; }
+    .hero-copy { max-width: 620px; color: var(--muted); font-size: 1.08rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .hero-note { display: flex; gap: 12px; align-items: center; margin-top: 32px; color: var(--muted); font-size: .88rem; }
+    .status-dot { width: 9px; height: 9px; background: var(--accent-2); border-radius: 50%; box-shadow: 0 0 0 5px rgba(53,208,178,.12); }
+    .hero-art { min-height: 430px; position: relative; display: grid; place-items: center; }
+    .orb { width: min(360px, 78vw); aspect-ratio: 1; border-radius: 50%; border: 1px solid rgba(244,185,66,.4); background: radial-gradient(circle at 35% 30%, rgba(53,208,178,.24), rgba(11,36,57,.25) 48%, rgba(244,185,66,.06)); box-shadow: inset 0 0 70px rgba(53,208,178,.08), 0 0 80px rgba(53,208,178,.06); display: grid; place-items: center; position: relative; }
+    .orb::before, .orb::after { content: ""; position: absolute; inset: 22px; border: 1px dashed rgba(255,255,255,.2); border-radius: 50%; }
+    .orb::after { inset: 52px; border-style: solid; border-color: rgba(53,208,178,.23); }
+    .orb-logo { width: 155px; height: 155px; border-radius: 36px; transform: rotate(-7deg); display: grid; place-items: center; color: #10263a; background: linear-gradient(145deg, #ffe4a0, var(--accent)); box-shadow: 0 25px 55px rgba(0,0,0,.3); font-size: 2.2rem; font-weight: 1000; letter-spacing: -.08em; }
+    .float-card { position: absolute; background: rgba(12,36,56,.92); border: 1px solid var(--line); border-radius: 17px; padding: 13px 16px; box-shadow: var(--shadow); backdrop-filter: blur(10px); }
+    .float-card strong { display: block; color: var(--accent); font-size: 1.1rem; }
+    .float-card span { color: var(--muted); font-size: .78rem; }
+    .float-one { top: 35px; right: -2px; }
+    .float-two { bottom: 43px; left: -4px; }
+    .scroll-cue { margin-top: 36px; color: var(--muted); font-size: .8rem; letter-spacing: .1em; }
+    .stats { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,.018); }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .stat { padding: 28px 20px; text-align: center; }
+    .stat + .stat { border-left: 1px solid var(--line); }
+    .stat strong { display: block; color: var(--accent); font-size: 1.7rem; }
+    .stat span { color: var(--muted); font-size: .9rem; }
+    .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; align-items: center; }
+    .about-visual { min-height: 390px; border: 1px solid var(--line); border-radius: 28px; padding: 28px; background: linear-gradient(145deg, rgba(53,208,178,.13), rgba(244,185,66,.08)); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+    .about-visual::after { content: "IMABA"; position: absolute; font-size: clamp(4rem, 11vw, 8rem); font-weight: 1000; letter-spacing: -.09em; color: rgba(255,255,255,.045); bottom: 10px; right: -12px; }
+    .about-visual .quote { font-size: clamp(1.8rem, 3.3vw, 2.6rem); font-weight: 900; line-height: 1.12; max-width: 350px; letter-spacing: -.04em; position: relative; z-index: 1; }
+    .about-visual .mini-label { color: var(--accent); font-size: .75rem; letter-spacing: .15em; font-weight: 900; }
+    .about-copy h3 { font-size: 1.45rem; margin-bottom: 10px; }
+    .about-copy p { color: var(--muted); margin-bottom: 22px; }
+    .pill-list { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
+    .pill { border: 1px solid var(--line); padding: 7px 12px; border-radius: 999px; font-size: .82rem; color: #d7e5ee; background: rgba(255,255,255,.025); }
+    .programs { background: linear-gradient(180deg, transparent, rgba(255,255,255,.025), transparent); }
+    .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .feature-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 25px; transition: transform .22s, border-color .22s; }
+    .feature-card:hover { transform: translateY(-5px); border-color: rgba(244,185,66,.55); }
+    .feature-icon { width: 52px; height: 52px; display: grid; place-items: center; background: rgba(244,185,66,.12); border: 1px solid rgba(244,185,66,.22); border-radius: 16px; font-size: 1.45rem; margin-bottom: 20px; }
+    .feature-card h3 { font-size: 1.12rem; margin-bottom: 9px; }
+    .feature-card p { color: var(--muted); font-size: .93rem; }
+    .tag { display: inline-block; margin-top: 18px; font-size: .75rem; color: var(--accent-2); font-weight: 800; }
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .team-card { text-align: center; padding: 23px 15px; background: rgba(255,255,255,.025); border: 1px solid var(--line); border-radius: 20px; }
+    .avatar { width: 76px; height: 76px; margin: 0 auto 15px; border-radius: 50%; display: grid; place-items: center; font-size: 1.6rem; font-weight: 900; color: #10263a; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+    .team-card h3 { font-size: 1rem; }
+    .team-card p { color: var(--muted); font-size: .83rem; margin-top: 4px; }
+    .team-note { margin-top: 18px; color: var(--muted); font-size: .85rem; }
+    .gallery-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 15px; }
+    .gallery-item { min-height: 210px; border-radius: 20px; border: 1px solid var(--line); overflow: hidden; position: relative; display: flex; align-items: end; padding: 20px; background: linear-gradient(145deg, rgba(53,208,178,.22), rgba(11,36,57,.9)); }
+    .gallery-item:nth-child(2) { background: linear-gradient(145deg, rgba(244,185,66,.22), rgba(11,36,57,.9)); }
+    .gallery-item:nth-child(3) { background: linear-gradient(145deg, rgba(116,130,255,.22), rgba(11,36,57,.9)); }
+    .gallery-item:nth-child(4) { background: linear-gradient(145deg, rgba(244,119,119,.2), rgba(11,36,57,.9)); }
+    .gallery-item:nth-child(5) { background: linear-gradient(145deg, rgba(53,208,178,.18), rgba(244,185,66,.08)); }
+    .gallery-item::before { content: attr(data-symbol); position: absolute; top: 12px; right: 18px; font-size: 4.5rem; opacity: .2; }
+    .gallery-item h3 { position: relative; z-index: 1; font-size: 1.08rem; }
+    .gallery-item span { display: block; color: var(--muted); font-size: .8rem; font-weight: 500; }
+    .cta { padding: 40px; border-radius: 28px; border: 1px solid rgba(244,185,66,.28); background: linear-gradient(120deg, rgba(244,185,66,.12), rgba(53,208,178,.08)); display: flex; justify-content: space-between; align-items: center; gap: 25px; }
+    .cta h2 { font-size: clamp(1.7rem, 3vw, 2.5rem); line-height: 1.15; letter-spacing: -.04em; }
+    .cta p { color: var(--muted); margin-top: 10px; max-width: 600px; }
+    .contact-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 35px; }
+    .contact-info { display: grid; gap: 14px; align-content: start; }
+    .contact-item { display: flex; gap: 14px; padding: 18px; border-radius: 17px; border: 1px solid var(--line); background: rgba(255,255,255,.025); }
+    .contact-item .feature-icon { flex: 0 0 46px; width: 46px; height: 46px; margin: 0; font-size: 1.2rem; }
+    .contact-item h3 { font-size: .95rem; }
+    .contact-item p { color: var(--muted); font-size: .86rem; overflow-wrap: anywhere; }
+    .contact-form { padding: 25px; border-radius: 22px; background: var(--panel); border: 1px solid var(--line); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field { margin-bottom: 15px; }
+    .field label { display: block; margin-bottom: 7px; font-size: .86rem; font-weight: 750; }
+    .field input, .field textarea { width: 100%; padding: 13px 14px; border-radius: 12px; border: 1px solid var(--line); outline: none; background: rgba(4,18,30,.65); color: white; transition: border-color .2s; }
+    .field input:focus, .field textarea:focus { border-color: var(--accent-2); }
+    .field textarea { min-height: 125px; resize: vertical; }
+    .form-message { margin-top: 12px; color: var(--accent-2); font-size: .88rem; }
+    footer { border-top: 1px solid var(--line); padding: 28px 0; color: var(--muted); font-size: .85rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 18px; align-items: center; }
+    .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    .footer-links a:hover { color: var(--accent); }
+    .back-top { position: fixed; right: 20px; bottom: 20px; width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--line); color: var(--bg); background: var(--accent); font-size: 1.25rem; font-weight: 900; cursor: pointer; display: none; z-index: 40; box-shadow: var(--shadow); }
+    .back-top.show { display: block; }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } }
+    @media (max-width: 900px) {
+      .nav-links { gap: 14px; }
+      .nav-links a { font-size: .82rem; }
+      .hero-grid { gap: 25px; }
+      .card-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { gap: 28px; }
+    }
+    @media (max-width: 700px) {
+      .container { width: min(100% - 30px, 560px); }
+      .section { padding: 70px 0; }
+      .nav-inner { min-height: 68px; }
+      .nav-toggle { display: block; }
+      .nav-links { display: none; position: absolute; left: 15px; right: 15px; top: 76px; padding: 14px; border: 1px solid var(--line); border-radius: 18px; background: rgba(7,26,43,.98); box-shadow: var(--shadow); flex-direction: column; align-items: stretch; gap: 0; }
+      .nav-links.open { display: flex; }
+      .nav-links a { display: block; padding: 12px 10px; font-size: .95rem; }
+      .nav-links .nav-cta { margin-top: 7px; text-align: center; background: var(--accent); color: #172334; border-radius: 999px; }
+      .hero { min-height: auto; padding: 65px 0 55px; }
+      .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: clamp(2.75rem, 13vw, 4.2rem); }
+      .hero-art { min-height: 335px; margin-top: 12px; }
+      .orb { width: 280px; }
+      .orb-logo { width: 120px; height: 120px; font-size: 1.7rem; }
+      .float-one { right: 0; top: 8px; }
+      .float-two { left: 0; bottom: 15px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat { padding: 20px; }
+      .stat + .stat { border-left: 0; border-top: 1px solid var(--line); }
+      .about-visual { min-height: 300px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:first-child { grid-column: 1 / -1; }
+      .cta { padding: 27px; flex-direction: column; align-items: flex-start; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 400px) {
+      .brand { gap: 8px; }
+      .brand-mark { width: 39px; height: 39px; }
+      .brand > span:last-child { font-size: .9rem; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item:first-child { grid-column: auto; }
+      .team-grid { gap: 10px; }
+      .team-card { padding: 18px 10px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="#beranda" aria-label="IMABA Sumenep, beranda">
+        <span class="brand-mark">IMABA</span>
+        <span>IMABA SUMENEP<small>Bersatu • Bertumbuh • Mengabdi</small></span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Buka menu navigasi" aria-expanded="false">☰</button>
+      <nav aria-label="Navigasi utama">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#beranda">Beranda</a></li>
+          <li><a href="#tentang">Tentang</a></li>
+          <li><a href="#program">Program</a></li>
+          <li><a href="#pengurus">Pengurus</a></li>
+          <li><a href="#galeri">Galeri</a></li>
+          <li><a class="nav-cta" href="#kontak">Hubungi Kami ↗</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="beranda">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <span class="eyebrow">Ruang Tumbuh Mahasiswa</span>
+          <h1>Bergerak Bersama,<br><span class="highlight">Berdampak Nyata.</span></h1>
+          <p class="hero-copy">IMABA Sumenep menjadi ruang bagi mahasiswa untuk bertukar gagasan, mengembangkan potensi, mempererat persaudaraan, dan menghadirkan kontribusi nyata bagi masyarakat.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#tentang">Kenali IMABA <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-ghost" href="#program">Jelajahi Program</a>
+          </div>
+          <div class="hero-note"><span class="status-dot"></span><span>Kolaborasi • Intelektualitas • Pengabdian</span></div>
+        </div>
+        <div class="hero-art reveal" aria-label="Ilustrasi identitas IMABA">
+          <div class="orb"><div class="orb-logo">IMABA</div></div>
+          <div class="float-card float-one"><strong>Satukan Gagasan</strong><span>Berangkat dari kebersamaan</span></div>
+          <div class="float-card float-two"><strong>Bergerak & Bertumbuh</strong><span>Untuk masa depan lebih baik</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="Nilai utama organisasi">
+      <div class="container stats-grid">
+        <div class="stat"><strong>01</strong><span>Intelektualitas</span></div>
+        <div class="stat"><strong>02</strong><span>Solidaritas</span></div>
+        <div class="stat"><strong>03</strong><span>Pengabdian</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="tentang">
+      <div class="container about-grid">
+        <div class="about-visual reveal">
+          <span class="mini-label">IDENTITAS KAMI</span>
+          <p class="quote">“Mahasiswa bukan hanya penonton perubahan, tetapi bagian dari penggeraknya.”</p>
+          <span class="mini-label">IMABA SUMENEP</span>
+        </div>
+        <div class="about-copy reveal">
+          <span class="eyebrow">Tentang Organisasi</span>
+          <div class="section-head" style="margin-bottom:20px">
+            <h2>Tempat gagasan bertemu <span class="highlight">aksi.</span></h2>
+          </div>
+          <p>IMABA Sumenep adalah wadah kebersamaan mahasiswa yang mendorong pengembangan kapasitas diri, dialog intelektual, kepedulian sosial, dan kolaborasi lintas generasi. Organisasi ini diharapkan menjadi tempat belajar sekaligus ruang untuk memberi manfaat.</p>
+          <h3>Visi</h3>
+          <p>Terwujudnya mahasiswa yang berintegritas, berwawasan luas, solid, dan mampu memberikan kontribusi positif bagi masyarakat.</p>
+          <h3>Misi</h3>
+          <p>Mengembangkan budaya diskusi dan literasi, memperkuat solidaritas anggota, membangun kader yang bertanggung jawab, serta menyelenggarakan kegiatan sosial dan pendidikan yang bermanfaat.</p>
+          <div class="pill-list"><span class="pill">Kaderisasi</span><span class="pill">Literasi</span><span class="pill">Kolaborasi</span><span class="pill">Pengabdian</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section programs" id="program">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Program Unggulan</span>
+          <h2>Dari ruang diskusi menuju <span class="highlight">aksi nyata.</span></h2>
+          <p>Contoh bidang kegiatan yang dapat dikembangkan sesuai kebutuhan dan keputusan organisasi.</p>
+        </div>
+        <div class="card-grid">
+          <article class="feature-card reveal"><div class="feature-icon">📚</div><h3>Diskusi & Literasi</h3><p>Membangun tradisi membaca, bertukar perspektif, dan mengasah daya kritis melalui kajian rutin dan forum ilmiah.</p><span class="tag">01 / INTELEKTUAL</span></article>
+          <article class="feature-card reveal"><div class="feature-icon">🤝</div><h3>Kaderisasi & Solidaritas</h3><p>Menguatkan rasa kekeluargaan, kepemimpinan, komunikasi, dan tanggung jawab dalam berorganisasi.</p><span class="tag">02 / KADERISASI</span></article>
+          <article class="feature-card reveal"><div class="feature-icon">🌱</div><h3>Pengabdian Masyarakat</h3><p>Menghadirkan kegiatan sosial, pendidikan, dan lingkungan yang berangkat dari kebutuhan masyarakat.</p><span class="tag">03 / PENGABDIAN</span></article>
+          <article class="feature-card reveal"><div class="feature-icon">🎤</div><h3>Pelatihan & Kepemimpinan</h3><p>Meningkatkan keterampilan berbicara, teknik persidangan, manajemen kegiatan, dan kerja tim.</p><span class="tag">04 / PENGEMBANGAN</span></article>
+          <article class="feature-card reveal"><div class="feature-icon">🧭</div><h3>Advokasi & Aspirasi</h3><p>Menjadi ruang untuk menyampaikan aspirasi, menyusun gagasan, dan berdialog secara konstruktif.</p><span class="tag">05 / PARTISIPASI</span></article>
+          <article class="feature-card reveal"><div class="feature-icon">✨</div><h3>Kreativitas & Kolaborasi</h3><p>Mendorong anggota membuat karya, menjalankan proyek bersama, dan membangun jejaring positif.</p><span class="tag">06 / KOLABORASI</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pengurus">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Kepengurusan</span>
+          <h2>Bergerak karena <span class="highlight">kerja bersama.</span></h2>
+          <p>Bagian ini adalah contoh format struktur pengurus. Silakan ganti jabatan dan nama sesuai kepengurusan resmi IMABA Sumenep.</p>
+        </div>
+        <div class="team-grid">
+          <article class="team-card reveal"><div class="avatar">K</div><h3>Nama Ketua</h3><p>Ketua Umum</p></article>
+          <article class="team-card reveal"><div class="avatar">W</div><h3>Nama Wakil</h3><p>Wakil Ketua</p></article>
+          <article class="team-card reveal"><div class="avatar">S</div><h3>Nama Sekretaris</h3><p>Sekretaris</p></article>
+          <article class="team-card reveal"><div class="avatar">B</div><h3>Nama Bendahara</h3><p>Bendahara</p></article>
+        </div>
+        <p class="team-note">Catatan: nama di atas masih berupa contoh dan bukan data pengurus resmi.</p>
+      </div>
+    </section>
+
+    <section class="section" id="galeri">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Galeri Kegiatan</span>
+          <h2>Setiap langkah punya <span class="highlight">cerita.</span></h2>
+          <p>Gunakan area ini untuk menampilkan dokumentasi kegiatan organisasi. Judul berikut masih berupa contoh.</p>
+        </div>
+        <div class="gallery-grid">
+          <article class="gallery-item reveal" data-symbol="✦"><h3>Musyawarah Wilayah<span>Forum gagasan dan keputusan bersama</span></h3></article>
+          <article class="gallery-item reveal" data-symbol="◎"><h3>Pelatihan Kader<span>Belajar, bertumbuh, berproses</span></h3></article>
+          <article class="gallery-item reveal" data-symbol="↗"><h3>Kajian Bersama<span>Merawat tradisi intelektual</span></h3></article>
+          <article class="gallery-item reveal" data-symbol="♡"><h3>Aksi Sosial<span>Hadir dan memberi manfaat</span></h3></article>
+          <article class="gallery-item reveal" data-symbol="✧"><h3>Temu Anggota<span>Mempererat persaudaraan</span></h3></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:10px">
+      <div class="container">
+        <div class="cta reveal">
+          <div><span class="eyebrow">Mari Terhubung</span><h2>Perjalanan besar dimulai <span class="highlight">bersama.</span></h2><p>Punya ide kegiatan, ingin berkolaborasi, atau ingin mengetahui lebih jauh tentang IMABA Sumenep? Mari bangun komunikasi.</p></div>
+          <a class="btn btn-primary" href="#kontak">Hubungi Kami ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="kontak">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Kontak</span>
+          <h2>Buka ruang untuk <span class="highlight">kolaborasi.</span></h2>
+          <p>Silakan sesuaikan informasi kontak resmi organisasi pada bagian ini.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-info reveal">
+            <div class="contact-item"><div class="feature-icon">✉</div><div><h3>Email Organisasi</h3><p>Tambahkan email resmi IMABA Sumenep</p></div></div>
+            <div class="contact-item"><div class="feature-icon">◎</div><div><h3>Media Sosial</h3><p>Tambahkan tautan Instagram atau media sosial resmi</p></div></div>
+            <div class="contact-item"><div class="feature-icon">⌖</div><div><h3>Sekretariat</h3><p>Tambahkan alamat sekretariat organisasi</p></div></div>
+          </div>
+          <form class="contact-form reveal" id="contactForm">
+            <div class="form-row">
+              <div class="field"><label for="nama">Nama</label><input id="nama" name="nama" placeholder="Nama lengkap" required></div>
+              <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="nama@email.com" required></div>
+            </div>
+            <div class="field"><label for="subjek">Subjek</label><input id="subjek" name="subjek" placeholder="Tujuan menghubungi" required></div>
+            <div class="field"><label for="pesan">Pesan</label><textarea id="pesan" name="pesan" placeholder="Tuliskan pesanmu di sini..." required></textarea></div>
+            <button class="btn btn-primary" type="submit">Siapkan Pesan ↗</button>
+            <p class="form-message" id="formMessage" role="status" aria-live="polite"></p>
+            <p style="color:var(--muted);font-size:.78rem;margin-top:9px">Formulir ini berjalan di browser dan belum mengirim data ke server.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <a class="brand" href="#beranda"><span class="brand-mark">IMABA</span><span>IMABA SUMENEP<small>Bergerak bersama, berdampak nyata.</small></span></a>
+      <div class="footer-links"><a href="#tentang">Tentang</a><a href="#program">Program</a><a href="#kontak">Kontak</a></div>
+      <p>© <span id="year"></span> IMABA Sumenep. Dibuat untuk kebutuhan profil organisasi.</p>
+    </div>
+  </footer>
+  <button class="back-top" id="backTop" aria-label="Kembali ke atas">↑</button>
+
+  <script>
+    // Menu navigasi responsif
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+      navToggle.setAttribute('aria-label', isOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+      navToggle.textContent = isOpen ? '×' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'Buka menu navigasi');
+        navToggle.textContent = '☰';
+      });
+    });
+
+    // Tahun otomatis
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Animasi saat bagian masuk ke layar
+    const revealItems = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach(item => observer.observe(item));
+    } else {
+      revealItems.forEach(item => item.classList.add('visible'));
+    }
+
+    // Tombol kembali ke atas
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+      backTop.classList.toggle('show', window.scrollY > 450);
+      const sections = document.querySelectorAll('main section[id]');
+      let current = '';
+      sections.forEach(section => {
+        if (window.scrollY >= section.offsetTop - 130) current = section.id;
+      });
+      navLinks.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+      });
+    }, { passive: true });
+    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Demo formulir: siapkan isi pesan, tidak mengirim ke server
+    document.getElementById('contactForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const data = new FormData(form);
+      const message = [
+        'Halo IMABA Sumenep,',
+        '',
+        'Nama: ' + data.get('nama'),
+        'Email: ' + data.get('email'),
+        'Subjek: ' + data.get('subjek'),
+        '',
+        'Pesan:',
+        data.get('pesan')
+      ].join('\n');
+      const messageBox = document.getElementById('formMessage');
+      messageBox.textContent = 'Pesan berhasil disiapkan di browser. Untuk mengirimnya, hubungkan formulir ke email atau layanan backend organisasi.';
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(message).then(() => {
+          messageBox.textContent = 'Pesan berhasil disiapkan dan disalin. Silakan kirim melalui kontak resmi organisasi.';
+        }).catch(() => {});
+      }
+    });
+  </script>
+</body>
+</html>
